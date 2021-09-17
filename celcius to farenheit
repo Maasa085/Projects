@@ -1,0 +1,15 @@
+"""celcius to farenheit"""
+
+user_choice = input("celsius to fahrenheit or fahrenheit to celsius: ")
+
+if user_choice == "celsius" or "celsius to fahrenheit":
+    celsius = int(input("Enter the temperature in celsius:"))
+    f = (celsius * 1.8) + 32
+    print("Temperature in fahrenheit is:", f)
+
+elif user_choice == "fahrenheit" or "fahrenheit to celsius":
+    fernheit = int(input("enter your temp in fahrenheit: "))
+    c = (fernheit / 1.8) - 32
+
+else :
+    print("sorry i don't understand that")
