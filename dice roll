@@ -1,0 +1,9 @@
+"""dice"""
+
+from random import randint
+
+random = randint(1, 6)
+random2 = randint(1, 6)
+print("rolling the dice...!")
+print(random)
+print(random2)
