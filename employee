@@ -1,0 +1,302 @@
+from tkinter import *
+from tkinter import messagebox
+import pymysql
+
+
+class EmployeeSystem:
+    def __init__(self, root):
+        self.root = root
+        self.root.title('Employee Payroll Management System')
+        self.root.geometry('1350x700+0+0')
+        title = Label(self.root, text='Employee Payroll Management System', font=('Lucida sans', 30, 'bold'),
+                      bg='#262626', fg='white', anchor='w').place(x=0, y=0, relwidth=1)
+
+        # Frame 1
+        # -------VARIABLES-------
+        self.var_emp_code = StringVar()
+        self.var_designation = StringVar()
+        self.var_name = StringVar()
+        self.var_age = StringVar()
+        self.var_experience = StringVar()
+        self.var_gender = StringVar()
+        self.var_email = StringVar()
+        self.var_hr_location = StringVar()
+        self.var_dob = StringVar()
+        self.var_doj = StringVar()
+        self.var_proofid = StringVar()
+        self.var_contact = StringVar()
+        self.var_status = StringVar()
+
+        frame1 = Frame(self.root, bd=3, relief=RIDGE, bg='white')
+        frame1.place(x=10, y=70, width=750, height=620)
+        title = Label(frame1, text='Employee Details', font=('Lucida bright', 20), bg='lightgray', fg='black',
+                      anchor='w', padx=10).place(x=0, y=0, relwidth=1)
+
+        lbl_code = Label(frame1, text='Employee Code', font=('Lucida bright', 19), bg='white', fg='black').place(x=10,
+                                                                                                                 y=70)
+        txt_code = Entry(frame1, textvariable=self.var_emp_code, font=('Lucida bright', 12), bg='lightyellow',
+                         fg='black').place(x=220, y=74, width=200)
+        btn_search = Button(frame1, text='Search', font=('Lucida bright', 19), bg='lightyellow', fg='black').place(
+            x=440, y=72, height=30)
+
+        # ROW 1
+        lbl_desig = Label(frame1, text='Designation', font=('Lucida bright', 19), bg='white', fg='black').place(x=10,
+                                                                                                                y=120)
+        txt_desig = Entry(frame1, textvariable=self.var_designation, font=('Lucida bright', 12), bg='lightyellow',
+                          fg='black').place(x=170, y=130, width=200)
+
+        lbl_dob = Label(frame1, text='D.O.B.', font=('Lucida bright', 20), bg='white', fg='black').place(x=390, y=120)
+        txt_dob = Entry(frame1, textvariable=self.var_dob, font=('Lucida bright', 12), bg='lightyellow',
+                        fg='black').place(x=520, y=125)
+
+        # ROW 2
+        lbl_name = Label(frame1, text='Name', font=('Lucida bright', 19), bg='white', fg='black').place(x=10, y=170)
+        txt_name = Entry(frame1, textvariable=self.var_name, font=('Lucida bright', 12), bg='lightyellow',
+                         fg='black').place(x=170, y=175, width=200)
+
+        lbl_doj = Label(frame1, text='D.O.J.', font=('Lucida bright', 20), bg='white', fg='black').place(x=390, y=170)
+        txt_doj = Entry(frame1, textvariable=self.var_doj, font=('Lucida bright', 12), bg='lightyellow',
+                        fg='black').place(x=520, y=175)
+
+        # ROW 3
+        lbl_age = Label(frame1, text='Age', font=('Lucida bright', 19), bg='white', fg='black').place(x=10, y=220)
+        txt_age = Entry(frame1, textvariable=self.var_age, font=('Lucida bright', 12), bg='lightyellow',
+                        fg='black').place(x=170, y=225, width=200)
+
+        lbl_exp = Label(frame1, text='Experience', font=('Lucida bright', 18), bg='white', fg='black').place(x=387,
+                                                                                                             y=220)
+        txt_exp = Entry(frame1, textvariable=self.var_experience, font=('Lucida bright', 12), bg='lightyellow',
+                        fg='black').place(x=520, y=225)
+
+        # ROW 4
+        lbl_gender = Label(frame1, text='Gender', font=('Lucida bright', 19), bg='white', fg='black').place(x=10, y=270)
+        txt_gender = Entry(frame1, textvariable=self.var_gender, font=('Lucida bright', 12), bg='lightyellow',
+                           fg='black').place(x=170, y=275, width=200)
+
+        lbl_proofid = Label(frame1, text='Proof ID', font=('Lucida bright', 20), bg='white', fg='black').place(x=390,
+                                                                                                               y=270)
+        txt_proofid = Entry(frame1, textvariable=self.var_proofid, font=('Lucida bright', 12), bg='lightyellow',
+                            fg='black').place(x=520, y=275)
+
+        # ROW 5
+        lbl_email = Label(frame1, text='Email', font=('Lucida bright', 19), bg='white', fg='black').place(x=10, y=320)
+        txt_email = Entry(frame1, textvariable=self.var_email, font=('Lucida bright', 12), bg='lightyellow',
+                          fg='black').place(x=170, y=325, width=200)
+
+        lbl_contact = Label(frame1, text='Contact', font=('Lucida bright', 20), bg='white', fg='black').place(x=390,
+                                                                                                              y=320)
+        txt_contact = Entry(frame1, textvariable=self.var_contact, font=('Lucida bright', 12), bg='lightyellow',
+                            fg='black').place(x=520, y=325)
+
+        # ROW 6
+        lbl_hired_loc = Label(frame1, text='Hired Location', font=('Lucida bright', 16), bg='white', fg='black').place(
+            x=10, y=370)
+        txt_hired_loc = Entry(frame1, textvariable=self.var_hr_location, font=('Lucida bright', 12), bg='lightyellow',
+                              fg='black').place(x=170, y=375, width=200)
+
+        lbl_Status = Label(frame1, text='Status', font=('Lucida bright', 20), bg='white', fg='black').place(x=390,
+                                                                                                            y=370)
+        txt_Status = Entry(frame1, textvariable=self.var_status, font=('Lucida bright', 12), bg='lightyellow',
+                           fg='black').place(x=520, y=375)
+
+        lbl_address = Label(frame1, text='Address', font=('Lucida bright', 19), bg='white', fg='black').place(x=10,
+                                                                                                              y=420)
+        self.txt_address = Text(frame1, font=('Lucida bright', 12), bg='lightyellow', fg='black')
+        self.txt_address.place(x=170, y=425, width=550, height=150)
+
+        # Frame 2
+        # ----------Variable------------
+        self.var_month = StringVar()
+        self.var_year = StringVar()
+        self.var_salary = StringVar()
+        self.var_t_days = StringVar()
+        self.var_absent = StringVar()
+        self.var_medical = StringVar()
+        self.var_pf = StringVar()
+        self.var_conveyance = StringVar()
+        self.var_netsal = StringVar()
+
+        frame2 = Frame(self.root, bd=3, relief=RIDGE, bg='white')
+        frame2.place(x=770, y=70, width=580, height=300)
+
+        title2 = Label(frame2, text='Employee Salary Details', font=('Lucida bright', 20), bg='lightgray', fg='black',
+                       anchor='w', padx=10).place(x=0, y=0, relwidth=1)
+
+        lbl_month = Label(frame2, text='Month', font=('Lucida bright', 14), bg='white', fg='black').place(x=10, y=60)
+        txt_month = Entry(frame2, textvariable=self.var_month, font=('Lucida bright', 12), bg='lightyellow',
+                          fg='black').place(x=90, y=62, width=100)
+
+        lbl_year = Label(frame2, text='Year', font=('Lucida bright', 14), bg='white', fg='black').place(x=210, y=60)
+        txt_year = Entry(frame2, textvariable=self.var_year, font=('Lucida bright', 12), bg='lightyellow',
+                         fg='black').place(x=270, y=62, width=100)
+
+        lbl_bsal = Label(frame2, text='Salary', font=('Lucida bright', 14), bg='white', fg='black').place(x=380, y=60)
+        txt_bsal = Entry(frame2, textvariable=self.var_salary, font=('Lucida bright', 12), bg='lightyellow',
+                         fg='black').place(x=460, y=62, width=100)
+
+        # ROW 1
+        lbl_days = Label(frame2, text='Total Days', font=('Lucida bright', 14), bg='white', fg='black').place(x=10,
+                                                                                                              y=120)
+        txt_days = Entry(frame2, textvariable=self.var_t_days, font=('Lucida bright', 12), bg='lightyellow',
+                         fg='black').place(x=170, y=125, width=120)
+
+        lbl_absent = Label(frame2, text='Absent', font=('Lucida bright', 14), bg='white', fg='black').place(x=300,
+                                                                                                            y=120)
+        txt_absent = Entry(frame2, textvariable=self.var_absent, font=('Lucida bright', 12), bg='lightyellow',
+                           fg='black').place(x=420, y=125, width=120)
+
+        # ROW 2
+        lbl_medical = Label(frame2, text='Medical', font=('Lucida bright', 14), bg='white', fg='black').place(x=10,
+                                                                                                              y=150)
+        txt_medical = Entry(frame2, textvariable=self.var_medical, font=('Lucida bright', 12), bg='lightyellow',
+                            fg='black').place(x=170, y=155, width=120)
+
+        lbl_PF = Label(frame2, text='PF', font=('Lucida bright', 14), bg='white', fg='black').place(x=300, y=150)
+        txt_PF = Entry(frame2, textvariable=self.var_pf, font=('Lucida bright', 12), bg='lightyellow',
+                       fg='black').place(x=420, y=155, width=120)
+
+        # ROW 3
+        lbl_conveyance = Label(frame2, text='Conveyance', font=('Lucida bright', 14), bg='white', fg='black').place(
+            x=10, y=180)
+        txt_conveyance = Entry(frame2, textvariable=self.var_conveyance, font=('Lucida bright', 12), bg='lightyellow',
+                               fg='black').place(x=170, y=185, width=120)
+
+        lbl_netsal = Label(frame2, text='Net Salary', font=('Lucida bright', 14), bg='white', fg='black').place(x=300,
+                                                                                                                y=180)
+        txt_netsal = Entry(frame2, textvariable=self.var_netsal, font=('Lucida bright', 12), bg='lightyellow',
+                           fg='black').place(x=420, y=185, width=120)
+
+        btn_calculate = Button(frame2, text='Calculate', command=self.calculate, font=('Lucida bright', 18), bg='gray',
+                               fg='black').place(x=150, y=240, height=30, width=120)
+        btn_save = Button(frame2, text='Save', font=('Lucida bright', 18), bg='gray', fg='black').place(x=285, y=240,
+                                                                                                        height=30,
+                                                                                                        width=120)
+        btn_clear = Button(frame2, text='Clear', font=('Lucida bright', 18), bg='gray', fg='black').place(x=420, y=240,
+                                                                                                          height=30,
+                                                                                                          width=120)
+
+        # Frame 3
+        frame3 = Frame(self.root, bd=3, relief=RIDGE, bg='white')
+        frame3.place(x=770, y=380, width=580, height=310)
+
+        # CALCULATOR FRAME
+
+        self.var_txt = StringVar()
+        self.var_operator = ''
+
+        def btn_click(num):
+            self.var_operator = self.var_operator + str(num)
+            self.var_txt.set(self.var_operator)
+
+        def result():
+            res = str(eval(self.var_operator))
+            self.var_txt.set(res)
+            self.var_operator = ''
+
+        def clear():
+            self.var_txt.set('')
+            self.var_operator = ''
+
+        calc_frame = Frame(frame3, bg='white', bd=2, relief=RIDGE)
+        calc_frame.place(x=2, y=2, width=247, height=300)
+
+        txt_result = Entry(calc_frame, bg='lightyellow', textvariable=self.var_txt, font=('lucida bright', 20, 'bold'),
+                           justify=RIGHT)
+        txt_result.place(x=0, y=0, relwidth=1, height=50)
+
+        # ROW 1
+        btn_7 = Button(calc_frame, text='7', command=lambda: btn_click(7), font=('times new roman', 15, 'bold')).place(
+            x=0, y=52, w=60, h=60)
+        btn_8 = Button(calc_frame, text='8', command=lambda: btn_click(8), font=('times new roman', 15, 'bold')).place(
+            x=61, y=52, w=60, h=60)
+        btn_9 = Button(calc_frame, text='9', command=lambda: btn_click(9), font=('times new roman', 15, 'bold')).place(
+            x=122, y=52, w=60, h=60)
+        btn_div = Button(calc_frame, text='/', command=lambda: btn_click('/'),
+                         font=('times new roman', 15, 'bold')).place(x=183, y=52, w=60, h=60)
+
+        # ROW 2
+        btn_4 = Button(calc_frame, text='4', command=lambda: btn_click(4), font=('times new roman', 15, 'bold')).place(
+            x=0, y=112, w=60, h=60)
+        btn_5 = Button(calc_frame, text='5', command=lambda: btn_click(5), font=('times new roman', 15, 'bold')).place(
+            x=61, y=112, w=60, h=60)
+        btn_6 = Button(calc_frame, text='6', command=lambda: btn_click(6), font=('times new roman', 15, 'bold')).place(
+            x=122, y=112, w=60, h=60)
+        btn_mult = Button(calc_frame, text='*', command=lambda: btn_click('*'),
+                          font=('times new roman', 15, 'bold')).place(x=183, y=112, w=60, h=60)
+
+        # ROW 3
+        btn_1 = Button(calc_frame, text='1', command=lambda: btn_click(1), font=('times new roman', 15, 'bold')).place(
+            x=0, y=172, w=60, h=60)
+        btn_2 = Button(calc_frame, text='2', command=lambda: btn_click(2), font=('times new roman', 15, 'bold')).place(
+            x=61, y=172, w=60, h=60)
+        btn_3 = Button(calc_frame, text='3', command=lambda: btn_click(3), font=('times new roman', 15, 'bold')).place(
+            x=122, y=172, w=60, h=60)
+        btn_minus = Button(calc_frame, text='-', command=lambda: btn_click('-'),
+                           font=('times new roman', 15, 'bold')).place(x=183, y=172, w=60, h=60)
+
+        # ROW 4
+        btn_0 = Button(calc_frame, text='0', command=lambda: btn_click(0), font=('times new roman', 15, 'bold')).place(
+            x=0, y=232, w=60, h=60)
+        btn_C = Button(calc_frame, text='C', command=clear, font=('times new roman', 15, 'bold')).place(x=61, y=232,
+                                                                                                        w=60, h=60)
+        btn_plus = Button(calc_frame, text='+', command=lambda: btn_click('+'),
+                          font=('times new roman', 15, 'bold')).place(x=122, y=232, w=60, h=60)
+        btn_equall = Button(calc_frame, command=result, text='=', font=('times new roman', 15, 'bold')).place(x=183,
+                                                                                                              y=232,
+                                                                                                              w=60,
+                                                                                                              h=60)
+
+        # SALARY FRAME
+        sal_frame = Frame(frame3, bg='white', bd=2, relief=RIDGE)
+        sal_frame.place(x=251, y=2, width=320, height=300)
+        title3 = Label(sal_frame, text='Salary Receipt', font=('Lucida bright', 18), bg='lightgray', fg='black',
+                       anchor='w', padx=10).place(x=0, y=0, relwidth=1)
+
+        sal_frame2 = Frame(sal_frame, bg='white', bd=2, relief=RIDGE)
+        sal_frame2.place(x=0, y=30, relwidth=1, height=230)
+
+        scroll_y = Scrollbar(sal_frame2, orient=VERTICAL)
+        scroll_y.pack(fill=Y, side=RIGHT)
+
+        self.txt_salary_receipt = Text(sal_frame2, font=('Lucida console', 15), bg='lightyellow',
+                                       yscrollcommand=scroll_y.set)
+        self.txt_salary_receipt.pack(fill=BOTH, expand=1)
+        scroll_y.config(command=self.txt_salary_receipt.yview)
+
+        btn_print = Button(sal_frame, text='Print', font=('Lucida bright', 18), bg='lightblue', fg='black').place(x=180,
+                                                                                                                  y=262,
+                                                                                                                  height=30,
+                                                                                                                  width=120)
+
+    def calculate(self):
+        # -------VARIABLES-------
+        self.var_emp_code.get()
+        self.var_designation.get()
+        self.var_name.get()
+        self.var_age.get()
+        self.var_experience.get()
+        self.var_gender.get()
+        self.var_email.get()
+        self.var_hr_location.get()
+        self.var_dob.get()
+        self.var_doj.get()
+        self.var_proofid.get()
+        self.var_contact.get()
+        self.var_status.get()
+        self.txt_address.get('1.0', END)
+
+        # ----------Variable------------
+        self.var_month.get()
+        self.var_year.get()
+        self.var_salary.get()
+        self.var_t_days.get()
+        self.var_absent.get()
+        self.var_medical.get()
+        self.var_pf.get()
+        self.var_conveyance.get()
+        self.var_netsal.get()
+
+
+root = Tk()
+obj = EmployeeSystem(root)
+root.mainloop()
