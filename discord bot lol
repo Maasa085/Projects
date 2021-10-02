@@ -4,7 +4,7 @@ import random
 import string
 
 
-TOKEN = 'ODkxMjk2NTU1Mzg5MzA4OTI5.YU8Smg.RTG4t6YqH2nA3ta0J0KOOLD9UEE'
+TOKEN = "i don't know check it out in the internet"
 intents = discord.Intents.all()
 client = commands.Bot(command_prefix='.', case_insensitive=True, intents=intents)
 
