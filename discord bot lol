@@ -1,0 +1,103 @@
+import discord
+from discord.ext import commands
+import random
+import string
+
+
+TOKEN = 'ODkxMjk2NTU1Mzg5MzA4OTI5.YU8Smg.RTG4t6YqH2nA3ta0J0KOOLD9UEE'
+intents = discord.Intents.all()
+client = commands.Bot(command_prefix='.', case_insensitive=True, intents=intents)
+
+
+@client.event
+async def on_message(message):
+    username = str(message.author).split('#')[0]
+
+    user_message = str(message.content)
+    channel = str(message.channel.name)
+    print(f'{ctx.author} : {user_message} ({channel})')
+    await client.process_commands(message)
+    if message.content.lower() == 'hello':
+        await message.channel.send(f'Hello {ctx.author.mention}!')
+        return
+    elif message.content.lower() == 'hi':
+        await message.channel.send(f'How you doin ?')
+        return
+    elif message.content.lower() == 'how are you':
+        await message.channel.send(f'good, thank you wau ? {username}')
+        return
+    elif message.content.lower() == 'good':
+        await message.channel.send(f'oke {username}')
+        return
+    elif message.author == client.user:
+        return
+    elif message.content.lower() == 'bye':
+        await message.channel.send(f'See You Later {username}!')
+        return
+    elif message.content.lower() == 'cya':
+        await message.channel.send(f'Have A Good One My Guy ! {username}!')
+        return
+    elif message.content.lower() == 'cool':
+        await message.channel.send(f'cooooooooolllllll!!!!!')
+        return
+    elif message.content.lower() == '.randomnumber':
+        response = f'This is your random number : {random.randrange(1000000)}'
+        await message.channel.send(response)
+        return
+    elif message.content.lower() == '.randomletter':
+        response = f'This is your random letter : {random.choice(string.ascii_letters)}'
+        await message.channel.send(response)
+        return
+    elif message.content.lower() == '.randomword':
+        response = f'This is your random word : {random.choice(string.ascii_letters) + random.choice(string.ascii_letters) + random.choice(string.ascii_letters) + random.choice(string.ascii_letters) }'
+        await message.channel.send(response)
+        return
+    elif message.content.lower() == 'yay':
+        response = f':)'
+        await message.channel.send(response)
+        return
+    elif message.content.lower() == 'dumb':
+            await message.channel.send(f'You Made me so sad ...')
+            return
+    elif message.content.lower() == 'sorry':
+        await message.channel.send(f'Never mind...')
+        return
+    elif message.content.lower() == 'no':
+        await message.channel.send(f'yes')
+        return
+    elif message.content.lower() == 'bot':
+        await message.channel.send(f'Yes ? Im here')
+        return
+    elif message.content.lower() == '.me':
+        await message.channel.send(f'You are {username}')
+        return
+    elif message.content.lower() == 'who are you':
+        await message.channel.send(f'I am lol my full name is laugh out loud and i am not at all a bot:)')
+        return
+    elif message.content.lower() == 'are you a bot':
+        await message.channel.send(f'not at all I am a normal human being like you :D')
+        return
+
+@client.command(aliases=['8ball', 'test'])
+async def _8ball(ctx, *, question):
+    responses = ["it is certain. ",
+                'it is decided so.',
+                     'wihtout a doubt. ',
+                     'yes - definatley. ',
+                     'you may rely on it. ',
+                     'as i see it, the answer is yes.',
+                     'most likely.',
+                     'yes.',
+                     'reply haze, please try agian. ',
+                     'ask agian later.',
+                     'better not tell you now .',
+                     'cannot predict now. ',
+                     'concentrate and ask agian.',
+                     'my reply is no.',
+                     'my sources say no',
+                     'outlook not so good.',
+                     'very doubtful/sus']
+    await ctx.send(f'Your Question: {question} \n Answer: {random.choice(responses)}')
+
+
+client.run(TOKEN)
