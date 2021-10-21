@@ -1,0 +1,17 @@
+user = input("Odd or Even numbers ?: ")
+
+if user == 'odd' :
+    lower = int(input("Enter the lowest number in which you want to find out the odd numbers : "))
+    upper = int(input("Enter the highest number in which you want to find out the odd numbers : "))
+    for i in range(lower, upper+1):
+        if(i%2 != 0):
+            print(i)
+elif user == 'even':
+    lower_limit = int(input("Enter the lowest number of which you want to find out the even numbers: "))
+    upper_limit = int(input("Enter the highest number of which you want to find out the even number : "))
+    for i in range(lower_limit, upper_limit+1):
+        if(i%2 == 0):
+            print(i)
+
+else:
+    print("sorry i don't understand")
