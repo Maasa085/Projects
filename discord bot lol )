@@ -15,10 +15,10 @@ async def on_message(message):
 
     user_message = str(message.content)
     channel = str(message.channel.name)
-    print(f'{ctx.author} : {user_message} ({channel})')
+    print(f'{username} : {user_message} ({channel})')
     await client.process_commands(message)
     if message.content.lower() == 'hello':
-        await message.channel.send(f'Hello {ctx.author.mention}!')
+        await message.channel.send(f'Hello {username}!')
         return
     elif message.content.lower() == 'hi':
         await message.channel.send(f'How you doin ?')
@@ -42,6 +42,10 @@ async def on_message(message):
         return
     elif message.content.lower() == '.randomnumber':
         response = f'This is your random number : {random.randrange(1000000)}'
+        await message.channel.send(response)
+        return
+    elif message.content.lower() == '.randomnumber(1, 10)':
+        response = f'This is your random number : {random.randrange(10)}'
         await message.channel.send(response)
         return
     elif message.content.lower() == '.randomletter':
@@ -77,6 +81,59 @@ async def on_message(message):
     elif message.content.lower() == 'are you a bot':
         await message.channel.send(f'not at all I am a normal human being like you :D')
         return
+    elif message.content.lower() == '.greet':
+        await message.channel.send(f'hello welcome to this server I hope you have a good time here. you can type .help to see all the stuff i can do !!')
+        return
+    elif message.content.lower() == '.randomnumber(1 to 10)':
+        response = f'This is your random number : {random.randrange(10)}'
+        await message.channel.send(response)
+        return
+    elif message.content.lower() == '.randomnumber(1,10)':
+        response = f'This is your random number : {random.randrange(10)}'
+        await message.channel.send(response)
+        return
+    elif message.content.lower() == '.diceroll':
+        response = f'This is your random number : {random.randrange(6)}, {random.randrange(6)}'
+        await message.channel.send(response)
+        return
+    elif message.content.lower() == '.cat':
+        await message.channel.send('https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/close-up-of-cat-wearing-sunglasses-while-sitting-royalty-free-image-1571755145.jpg')
+        return
+    elif message.content.lower() == 'discord':
+        await message.channel.send('https://i.gadgets360cdn.com/large/discord_main_website_1615986172916.jpg?downsize=950:*')
+        return
+    elif message.content.lower() == '.meme':
+        await message.channel.send('https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Example_of_modern_internet_meme.jpg/330px-Example_of_modern_internet_meme.jpg')
+        return
+    elif message.content.lower() == '!cat':
+        await message.channel.send('https://techcrunch.com/wp-content/uploads/2021/03/poptart1redrainbowfix-1.gif?w=430&h=230&crop=1')  
+        return
+    elif message.content.lower() == '!meme':
+        await message.channel.send('https://image.scoopwhoop.com/w1200-h667-cfix/https://s4.scoopwhoop.com/anj2/6156a3188a373a1f9294f868/8125c2da-1b04-4a4d-8820-55969bf17164.jpg')
+        return
+    elif message.content.lower() == 'send':
+        await message.channel.send('https://encrypted-tbn0.gstatic.com//images?q=tbn:ANd9GcQoleF9VfjsCDZTZH2ixPm9rUNA4TCVrJTavg&usqp=CAU')
+        return
+    elif message.content.lower() == '.help':
+        await message.channel.send(f"""```oke there human let me help you out !
+        these are all the functions i can do:
+        try them and check them out :
+        hello or hi
+        how are you
+        good
+        bye or cya
+        cool
+        shut up
+        .randomnumber
+        .randomnumber(1, 10)
+        .diceroll
+        .randomletter
+        .meme or !meme
+        .cat ot !cat
+        .8ball and then any question of your choice```""")
+        return
+
+
 
 @client.command(aliases=['8ball', 'test'])
 async def _8ball(ctx, *, question):
@@ -99,5 +156,23 @@ async def _8ball(ctx, *, question):
                      'very doubtful/sus']
     await ctx.send(f'Your Question: {question} \n Answer: {random.choice(responses)}')
 
+@client.command()
+async def poll(ctx, question, *options):
+        if len(options) == 1 or len(options) > 10:
+            await ctx.send("Please enter a valid number of arguments")
+            return
 
-client.run(TOKEN)
+        if len(options) == 0:
+            answers = ["Yes", "No"]
+        else:
+            answers = [answer for answer in options]
+        
+        embed = discord.Embed(title=question, color=discord.Color.blurple())
+        for i, answer in enumerate(answers):
+            embed.add_field(name=f"**{i+1}**", value=answer, inline=False)
+
+        message = await ctx.send(embed=embed)
+        reactions = ["1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣", "6️⃣", "7️⃣", "8️⃣", "9️⃣", "🔟"]
+
+        for i in range(len(answers)):
+            await message.add_reaction(reactions[i])
