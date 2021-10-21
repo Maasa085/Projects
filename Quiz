@@ -1,0 +1,28 @@
+# you can add more question I just put 3
+
+print("welcome to my game of quiz")
+
+playing = input("do you want to play? : ")
+
+if playing != 'yes':
+    quit()
+
+print("ok! good let's start! ")
+
+question = input("how many days are there in August? : ")
+if question == '31':
+    print("you got it correct")
+else:
+    print("sorry! incorrect")
+
+question2 = input("what does RAM stand for? : ")
+if question2 == "random access memory".lower():
+    print('you got the correct answer')
+else:
+    print('sorry! incorrect')
+
+question3 = input("what is the capital of Russia? : ")
+if question3 == "moscow".lower():
+    print("you got the correct answer")
+else:
+    print("sorry ! incorrect")
