@@ -1,0 +1,21 @@
+# this is just a useless code it is just used to close the same window it generates
+
+from tkinter import *
+
+win = Tk()
+
+win.geometry("650x450")
+
+
+def quit_win():
+    win.quit()
+
+
+def destroy_win():
+    win.destroy()
+
+
+Button(win, text="Quit", command=quit_win, font=('Helveticabold', 25)).pack(pady=5)
+Button(win, text="Destroy", command=destroy_win, font=('Helveticabold', 25)).pack(pady=5)
+
+win.mainloop()
