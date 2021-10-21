@@ -1,0 +1,25 @@
+#impprt random to let the computer choose a random option between [r, p, s]
+import random
+
+#in this code a while loop is needed so that the code can go in an infinate loop. which means the code does not end
+while 1 < 2:
+    print('rock papper scissors SHOOT !')
+
+    user_choice = input("choose one (R)ock, (P)apper, (S)cissors : ")
+
+    print('you choose', user_choice)
+    
+    choices = ['r', 'p', 's']
+    opponent_choice = random.choice(choices)
+    print ("i choose", opponent_choice)
+
+    if opponent_choice == user_choice:
+        print('TIE !')
+    elif opponent_choice == 'r' and  user_choice == 's':
+        print('rock beats scissors, I win')
+    elif opponent_choice == 's' and user_choice == 'p':
+        print('scissors beats paper, I win')
+    elif opponent_choice == 'p' and user_choice == 'r':
+        print('paper beats rock, I win')
+    else:
+        print("you win !")
