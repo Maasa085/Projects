@@ -1,0 +1,36 @@
+from random import randint
+
+
+print("please don't put numbers and no capital letters.")
+four_or_six = input("how many digits should your password be (until 10 digits): ")
+
+if four_or_six == "one".lower():
+    print(randint(1, 9))
+elif four_or_six == 'two'.lower():
+    print(randint(1, 9), randint(1, 9))
+
+elif four_or_six == 'three'.lower():
+    print(randint(1, 9), randint(1, 9), randint(1, 9))
+
+
+elif four_or_six == 'four'.lower():
+    print(randint(1, 9), randint(1, 9), randint(1, 9), randint(1, 9))
+
+elif four_or_six == 'five'.lower():
+    print(randint(1, 9), randint(1, 9), randint(1, 9), randint(1, 9), randint(1, 9))
+
+elif four_or_six == "six".lower():
+    print(randint(1, 9), randint(1, 9), randint(1, 9), randint(1, 9), randint(1, 9), randint(1, 9))
+
+
+elif four_or_six == "seven".lower():
+    print(randint(1, 9), randint(1, 9), randint(1, 9), randint(1, 9), randint(1, 9), randint(1, 9), randint(1, 9))
+
+elif four_or_six == "eight".lower():
+    print(randint(1, 9), randint(1, 9), randint(1, 9), randint(1, 9), randint(1, 9), randint(1, 9), randint(1, 9), randint(1, 9))
+
+elif four_or_six == "nine".lower():
+    print(randint(1, 9), randint(1, 9), randint(1, 9), randint(1, 9), randint(1, 9), randint(1, 9), randint(1, 9), randint(1, 9), randint(1, 9))
+
+elif four_or_six == "ten".lower():
+    print(randint(1, 9), randint(1, 9), randint(1, 9), randint(1, 9), randint(1, 9), randint(1, 9), randint(1, 9), randint(1, 9), randint(1, 9), randint(1, 9))
