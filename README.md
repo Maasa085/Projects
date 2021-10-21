@@ -1,2 +1,2 @@
 # Projects
-these are all my projects
+these are all the projects that i have created uptil now.
