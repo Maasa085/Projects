@@ -1,14 +1,13 @@
 import random
 
-# Taking players data
-players = {}  # stores players name their locations
+players = {} 
 isReady = {}
-current_loc = 1  # vaiable for iterating location
+current_loc = 1 
 
 imp = True
 
 
-# players input function
+
 def player_input():
     global players
     global current_loc
@@ -23,21 +22,19 @@ def player_input():
                 players[name] = current_loc
                 isReady[name] = False
             x = False
-            play()  # play funtion call
+            play()
 
         else:
             print("Number of player cannot be zero")
             print()
 
 
-# Dice roll method
+
 def roll():
-    # print(players)
     return random.randrange(1, 7)
 
 
-# play method
-def play():
+    def play():
     global players
     global isReady
     global imp
@@ -88,9 +85,9 @@ def play():
                     print(f"you are at position {players[i]}")
 
                 elif n == 2:
-                    players = {}  # stores player ans their locations
+                    players = {}
                     isReady = {}
-                    current_loc = 0  # vaiable for iterating location
+                    current_loc = 0
                     player_input()
 
                 elif n == 3:
@@ -101,7 +98,6 @@ def play():
                     print("pls enter a valid input")
 
 
-# Move method
 def move(a, i):
     global players
     global imp
@@ -114,7 +110,6 @@ def move(a, i):
         return temp_loc
 
 
-# snake bite code
 def snake(c, i):
     if (c == 32):
         players[i] = 10
@@ -137,7 +132,6 @@ def snake(c, i):
     return players[i]
 
 
-# ladder code
 def ladder(a, i):
     global players
 
@@ -164,7 +158,6 @@ def ladder(a, i):
     return players[i]
 
 
-# while run:
 print("/"*40)
 print("Welcome to the snake ladder game !!!!!!!")
 print("/"*40)
